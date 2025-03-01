@@ -4,17 +4,17 @@ var fritz = require("fritzapi"),
 module.exports = function(RED) {
 
     /** Connection information for the FRITZ!Box */
-	function Fritzbox(config) {
-  		 RED.nodes.createNode(this, config);
-  		 var node = this;
-       
+        function Fritzbox(config) {
+                 RED.nodes.createNode(this, config);
+                 var node = this;
+
        if (! /^https?:\/\//.test(config.host)) {
             config.host = "http://" + config.host;
         }
-    		node.options = {
-      			strictSSL: config.strictSSL,
-      			url: config.host
-    		};
+                node.options = {
+                        strictSSL: config.strictSSL,
+                        url: config.host
+                };
 
         /** Login to the box and retrieve device list */
         node.init = function() {
@@ -57,7 +57,7 @@ module.exports = function(RED) {
 
         /** Check whether the AIN of a device is known */
         node.checkDevice = function(othernode, msg, flags) {
-            if (!node.ready) {
+            if (!node.isReady) {
                 node.warn("Device not ready");
                 return;
             }
@@ -149,18 +149,18 @@ module.exports = function(RED) {
 
         node.init();
     };
-    
-	RED.nodes.registerType("fritz-api", Fritzbox, {
-		credentials: {
-			username: {type: "text"},
-			password: {type: "password"}
-		}
-	});
+
+        RED.nodes.registerType("fritz-api", Fritzbox, {
+                credentials: {
+                        username: {type: "text"},
+                        password: {type: "password"}
+                }
+        });
 
 
     /** Thermostats have a temperatur sensor, target temparature, and day / night presets */
-	function Thermostat(config) {
-		RED.nodes.createNode(this, config);
+        function Thermostat(config) {
+                RED.nodes.createNode(this, config);
         var node = this;
         node.config = config;
         node.connection = RED.nodes.getNode(config.connection);
@@ -212,7 +212,7 @@ module.exports = function(RED) {
         };
 
         /** Main message handler */
-		node.on('input', function msgHandler(msg) {
+                node.on('input', function msgHandler(msg) {
             // Get action
             const action = msg.action || node.config.action
             // Wait for node being ready
@@ -247,7 +247,7 @@ module.exports = function(RED) {
                     }).catch(function(error) {
                         node.error(error);
                     });
-        
+
                     break;
                 case 'setTempTarget':
                     // Tested successfully
@@ -273,7 +273,7 @@ module.exports = function(RED) {
                         node.send(msg);
                     });
                     break;
-       
+
                 case 'getOSVersion':
                 case 'getDeviceList':
                 case 'getTemplateList':
@@ -297,8 +297,8 @@ module.exports = function(RED) {
                     node.error("Unknown action: " + (action || '-undefined-'));
                     return;
             }
-		    });
-        
+                    });
+
         node.connection.statusFlag(node);
     }
 
@@ -306,14 +306,14 @@ module.exports = function(RED) {
 
 
     /** Swiches have on' and 'off' states, and can report technical values */
-	function Outlet(config) {
-		RED.nodes.createNode(this, config);
+        function Outlet(config) {
+                RED.nodes.createNode(this, config);
         var node = this;
         node.config = config;
         node.connection = RED.nodes.getNode(config.connection);
 
         /** Main message handler */
-		    node.on('input', function(msg) {
+                    node.on('input', function(msg) {
             if (!node.connection.checkDevice(node, msg, fritz.FUNCTION_OUTLET)) return;
 
             const action = msg.action || node.config.action
@@ -348,7 +348,7 @@ module.exports = function(RED) {
                     node.error("Unknown action: " + (action || '-undefined-'));
                     return;
             }
-		    });
+                    });
 
         node.connection.statusFlag(node);
     }
@@ -466,13 +466,13 @@ module.exports = function(RED) {
      * FIXME: Broken with FRITZ!Box 7590 running OS 7.01
      * See: https://github.com/andig/fritzapi/issues/10
      */
-	function GuestWifi(config) {
-		RED.nodes.createNode(this, config);
+        function GuestWifi(config) {
+                RED.nodes.createNode(this, config);
         var node = this;
         node.config = config;
         node.connection = RED.nodes.getNode(config.connection);
 
-		    node.on('input', function(msg) {
+                    node.on('input', function(msg) {
             if (!node.connection.ready) {
                 node.warn("Device not ready");
                 return;
@@ -497,7 +497,7 @@ module.exports = function(RED) {
                     node.error("Unknown action: " + (action || '-undefined-'));
                     return;
             }
-		    });
+                    });
 
         node.connection.statusFlag(node);
     }
