@@ -1,6 +1,6 @@
 # node-red-contrib-fritzapi
 
-**This project is no longer actively maintained. Feel free to fork it, new maintainers are welcome.**
+Forked from dnknth
 
 Control your smart home DECT devices through an AVM Fritz!Box with node-RED.
 
@@ -9,7 +9,8 @@ These nodes are a simple Node-RED wrapper for [andig's](https://github.com/andig
 
 ## Installation
 
-The recommended way is to install directly from Node-RED under `Manage palette`.
+1. Clone the repo.
+2. npm install ./node-red-contrib-fritzapi
 
 ## Configuration
 
@@ -43,17 +44,9 @@ See the node documenation for details.
 Adjustments are only made if the desired state differs from the actual state. All updates are logged.
 
 All actions output the requested or updated value.
-
-## Troubleshooting
-
-A popular pitfall seems to be that the Fritz!Box UI shows imcomplete AINs for various [bulbs](https://github.com/dnknth/node-red-contrib-fritzapi/issues/27#issuecomment-953936018) and [blinds](https://github.com/dnknth/node-red-contrib-fritzapi/issues/26). If the device does not respond, try appending `-1` to the AIN.
-
-## Still stuck?
-
-Switches, bulbs and blinds were tested by contributors, as I do not own any. All feedback appreciated, but please check the [relevant issues](https://github.com/dnknth/node-red-contrib-fritzapi/issues?q=is%3Aissue+is%3Aclosed) before opening new ones.
-
 ## Credits
 
+Thanks dnknth for developing.
 Kudos to [andig](https://github.com/andig) for [fritzapi](https://www.npmjs.com/package/fritzapi).
 Also, substantial parts of the low-level interface were also written by [andig](https://github.com/andig) for
 [homebridge-fritz](https://www.npmjs.com/package/homebridge-fritz). Thanks for the wizardry!
