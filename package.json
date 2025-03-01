@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dnknth/node-red-contrib-fritzapi.git"
+    "url": "git+https://github.com/Tobi-ctrl/node-red-contrib-fritzapi.git"
   },
   "bugs": {
-    "url": "https://github.com/dnknth/node-red-contrib-fritzapi/issues"
+    "url": "https://github.com/Tobi-ctrl/node-red-contrib-fritzapi/issues"
   },
   "license": "MIT",
   "keywords": [
