@@ -40,7 +40,7 @@ module.exports = function(RED) {
         /** Query smart home devices from the FRITZ!Box and log them */
         node.updateDeviceList = function() {
             node.log("Updating devices");
-            return node.fritz("getDeviceList").then(function(devices) {
+            return node.fritz("getDeviceListInfos").then(function(devices) {
                 // cache list of devices in options for reuse by non-API functions
                 node.deviceList = devices;
                 node.ready = true;
@@ -275,7 +275,7 @@ module.exports = function(RED) {
                     break;
 
                 case 'getOSVersion':
-                case 'getDeviceList':
+                case 'getDeviceListInfos':
                 case 'getTemplateList':
                 case 'getThermostatList':
                     // Tested successfully
